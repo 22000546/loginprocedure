@@ -3,9 +3,12 @@ package loginprocedure;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.*;
+import java.awt.Font;
 
 public class Main extends JFrame {
 	
@@ -97,33 +100,64 @@ public class Main extends JFrame {
 		 */
 		JPanel panel = new JPanel();
 		panel.setBounds(50, 50, WIDTH-100, HEIGHT-100);
-		//panel.setBackground(Color.DARK_GRAY);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		// id
 		JLabel idLabel = new JLabel("ID : ");
-		idLabel.setBounds(WIDTH/2-105, HEIGHT/6, 50, 30);
+		idLabel.setBounds(458, 272, 50, 30);
 		panel.add(idLabel);
 		
 		JTextField id = new JTextField(10);
-		id.setBounds(WIDTH/2-70, HEIGHT/6, 140, 30);
+		id.setForeground(Color.DARK_GRAY);
+		id.setBounds(493, 272, 140, 30);
 		id.setText("ID");
 		panel.add(id);
 		
 		// password
 		JLabel pwLabel = new JLabel("PASSWORD : ");
-		pwLabel.setBounds(WIDTH/2-160, HEIGHT/6+50, 100, 30);
+		pwLabel.setBounds(403, 322, 100, 30);
 		panel.add(pwLabel);
 		
 		JPasswordField pw = new JPasswordField(10);
-		pw.setBounds(WIDTH/2-70, HEIGHT/6+50, 140, 30);
+		pw.setForeground(Color.DARK_GRAY);
+		pw.setBounds(493, 322, 140, 30);
 		pw.setText("PASSWORD");
 		panel.add(pw);
 		
 		// login button
 		JButton login = new JButton("로그인");
-		login.setBounds(HEIGHT/2+100, HEIGHT/2-100, 200, 70);
+		login.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		login.setBounds(673, 277, 100, 70);
 		panel.add(login);
+		login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//new Home();
+				//frame.setVisible(false);
+			}
+		});
+		
+		// sign up button
+		JButton signup = new JButton("회원가입");
+		signup.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		signup.setBounds(458, 376, 100, 50);
+		panel.add(signup);
+		signup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+			}
+		});
+		
+		// search id/pw
+		JButton search = new JButton("ID/비밀번호 찾기");
+		search.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		search.setBounds(558, 376, 100, 50);
+		panel.add(search);
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+			}
+		});
+		
 	}
 }
