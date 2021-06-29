@@ -21,8 +21,8 @@ public class Main extends JFrame {
 	/*
 	 * Settings
 	 */
-	private static final int WIDTH = 1200;
-	private static final int HEIGHT = 700;
+	static final int WIDTH = 1200;
+	static final int HEIGHT = 700;
 	
 	
 	/*
@@ -144,7 +144,8 @@ public class Main extends JFrame {
 		panel.add(signup);
 		signup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				new SignUp();
+				frame.setVisible(false);
 			}
 		});
 		
