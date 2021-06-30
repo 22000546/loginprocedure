@@ -1,14 +1,21 @@
 package loginprocedure;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.*;
+
+import loginprocedure.utils.LoginProcess;
+
 import java.awt.Font;
+import java.awt.HeadlessException;
 
 public class Main extends JFrame {
 	
@@ -19,7 +26,14 @@ public class Main extends JFrame {
 	private JFrame frame;
 	
 	// For databases
+	private static Connection connection;
+	private static Statement statement;
+	private static ResultSet resultSet;
+	
 	private boolean loginSuccess = true;
+	private static String adminID = "admin";
+	private static String userID;
+	private String userPW;
 	
 	/*
 	 * Settings
@@ -31,9 +45,7 @@ public class Main extends JFrame {
 	 * main method
 	 */
 	public static void main(String[] args) {
-		
-		Connection connection = null;
-		
+				
 		String url = "jdbc:mysql://localhost:3306/yeeunDB";
 		
 		try {
@@ -41,6 +53,7 @@ public class Main extends JFrame {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("1");
 			connection = DriverManager.getConnection(url, "yeeun", "1234");
+			statement = connection.createStatement();
 			System.out.println("DB successfully connected.");
 			
 		} catch (Exception e) {
@@ -123,13 +136,37 @@ public class Main extends JFrame {
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(loginSuccess) {
-					new User();
-					frame.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(null, "ID/비밀번호가 올바르지 않거나 회원 정보가 없습니다.\n" + "다시 한 번 확인하십시오.");
-				}
+				userID = id.getText();
+				char[] tmp = pw.getPassword();
+				userPW = new String(tmp);
 				
+				if(LoginProcess.isAdminID(userID, adminID)) {
+					try {
+						if(LoginProcess.isAdmin(userID, userPW)) {
+							new Admin();
+							frame.setVisible(false);
+						} else {
+							JOptionPane.showMessageDialog(null, "ID/비밀번호가 올바르지 않거나 회원 정보가 없습니다.\n" + "다시 한 번 확인하십시오.");
+						}
+					} catch (HeadlessException e1) {
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					try {
+						if(LoginProcess.isUser(userID, userPW)) {
+							new User();
+							frame.setVisible(false);
+						} else {
+							JOptionPane.showMessageDialog(null, "ID/비밀번호가 올바르지 않거나 회원 정보가 없습니다.\n" + "다시 한 번 확인하십시오.");
+						}
+					} catch (HeadlessException e1) {
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 				
 			}
 		});
@@ -158,4 +195,29 @@ public class Main extends JFrame {
 		});
 		
 	}
+	
+	public static String getAdminID() {
+		return adminID;
+	}
+	
+	public static String getUserID() {
+		return userID;
+	}
+	
+	public static void setStatement(Statement state) {
+		statement = state;
+	}
+	
+	public static Statement getStatement() {
+		return statement;
+	}
+	
+	public static void setResultSet(ResultSet set) {
+		resultSet = set;
+	}
+	
+	public static ResultSet getResultSet() {
+		return resultSet;
+	}
+	
 }
