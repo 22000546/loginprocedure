@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class SignUp extends Frame {
+public class SignUp extends JFrame {
 	
 	private JFrame frame;
 	private boolean success;
