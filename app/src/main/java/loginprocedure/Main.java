@@ -18,24 +18,14 @@ public class Main extends JFrame {
 	
 	private JFrame frame;
 	
+	// For databases
+	private boolean loginSuccess = true;
+	
 	/*
 	 * Settings
 	 */
 	static final int WIDTH = 1200;
 	static final int HEIGHT = 700;
-	
-	
-	/*
-	 * Subframes
-	 * Sign-up / 
-	 */
-
-	/*
-	 * Sign up frame 
-	 */
-	class SignUpFrame extends JFrame {
-		
-	}
 	
 	/*
 	 * main method
@@ -132,8 +122,15 @@ public class Main extends JFrame {
 		panel.add(login);
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new Home();
-				//frame.setVisible(false);
+				
+				if(loginSuccess) {
+					new User();
+					frame.setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "ID/비밀번호가 올바르지 않거나 회원 정보가 없습니다.\n" + "다시 한 번 확인하십시오.");
+				}
+				
+				
 			}
 		});
 		
@@ -156,7 +153,7 @@ public class Main extends JFrame {
 		panel.add(search);
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				
 			}
 		});
 		
