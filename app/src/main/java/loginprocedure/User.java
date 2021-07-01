@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import loginprocedure.utils.EditProcess;
+import loginprocedure.utils.LoginProcess;
 
 public class User extends JFrame {
 	
@@ -90,8 +91,17 @@ public class User extends JFrame {
 		revise.setBounds(Main.WIDTH/5-100, Main.HEIGHT/2-50, 200, 80);
 		revise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new UserDataEditor();
-				frame.setVisible(false);
+				String input = JOptionPane.showInputDialog("비밀번호를 입력하십시오.");
+				try {
+					if(LoginProcess.isUser(id, input)) {
+						new UserDataEditor();
+						frame.setVisible(false);
+					} else {
+						JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다. 다시 시도하십시오.");
+					}
+				} catch (HeadlessException | SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel.add(revise);

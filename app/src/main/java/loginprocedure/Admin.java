@@ -2,6 +2,7 @@ package loginprocedure;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import loginprocedure.utils.LoginProcess;
 
 public class Admin extends JFrame {
 	
@@ -88,8 +91,17 @@ public class Admin extends JFrame {
 		revise.setBounds(Main.WIDTH/4-100, Main.HEIGHT/2-50, 200, 80);
 		revise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AdminDataEditor();
-				frame.setVisible(false);
+				String input = JOptionPane.showInputDialog("비밀번호를 입력하십시오.");
+				try {
+					if(LoginProcess.isAdmin(id, input)) {
+						new AdminDataEditor();
+						frame.setVisible(false);
+					} else {
+						JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다. 다시 시도하십시오.");
+					}
+				} catch (HeadlessException | SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel.add(revise);
