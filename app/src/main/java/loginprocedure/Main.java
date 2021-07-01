@@ -190,7 +190,8 @@ public class Main extends JFrame {
 		panel.add(search);
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
+				new Searcher();
 			}
 		});
 		
