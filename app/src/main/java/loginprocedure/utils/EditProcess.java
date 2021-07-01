@@ -12,7 +12,7 @@ public class EditProcess {
 	
 	public static boolean signOut(String id) throws SQLException {
 		
-		String SQL = "DELETE FROM user_info WHERE id = '" + User.getID() + "'";
+		String SQL = "DELETE FROM user_info WHERE id = '" + id + "'";
 		
 		update = Main.getStatement().executeUpdate(SQL);
 		
